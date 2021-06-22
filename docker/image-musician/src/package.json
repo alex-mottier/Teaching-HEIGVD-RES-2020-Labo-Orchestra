@@ -1,7 +1,7 @@
 {
-  "name": "image-auditor",
+  "name": "image-musician",
   "version": "1.0.0",
-  "description": "RES Lab HTTP dynamic server",
+  "description": "RES Lab UDP Orchestra",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,5 +9,7 @@
   "author": "Jérémie Melly & Alexandre Mottier",
   "license": "ISC",
   "dependencies": {
+    "dgram": "^1.0.1",
+    "uuid": "^8.3.2"
   }
 }

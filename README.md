@@ -142,7 +142,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we **define and build our own Docker image**?|
-| | By using this command : `docker build -t "res/musician" .`.    |
+| | By using this command : `docker build -t "res/musician" .` .    |
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
 |  | That's the path where we want to execute our code            |
 |Question | After building our Docker image, how do we use it to **run containers**?  |

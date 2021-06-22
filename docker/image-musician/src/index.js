@@ -1,8 +1,11 @@
-const net = require('net')
-const moment = require('moment')
-const async = require('async')
-const uuid = require('uuid')
-const udp_packet = require('udp-packet')
+/**
+ * Authors : Jérémie Melly & Alexandre Mottier
+ * Date : 22.06.2021
+ * File : index.js
+ * Brief : Building
+ */
+const dgram = require('dgram');
+const { v4: uuidv4 } = require('uuid');
 
 const port = 2205
 
@@ -14,21 +17,27 @@ const instrumentMap = {
   "drum" : "boum-boum"
 }
 
+const uuid = uuidv4();
 
-// Async thread to spot inactive musicians
-function spotInactives(musician) {
-//   if(musician.lastActive + Date.secon)
-    console.log(moment())
-    setTimeout(spotInactives, 700);
-};
+let client = dgram.createSocket('udp4');
+let argv = process.argv;
+let instrument = argv[2];
+
+function sendDatagram(){
+  let datagram = instrumentMap[instrument] + " " + uuid;
+  console.log("sending packet : " + datagram);
+  client.send(datagram,0, datagram.length, port, '127.0.0.1');
+}
 
 
-async.forEachOf(
-  musicians,
-  spotInactives,
-  (err) => {
-    if (err) console.error(err.message);
-    // configs is now a map of JSON data
-    // doSomethingWith(configs);
-  }
-);
+
+if(argv.length != 3){
+  console.log("Need one and only one parameter !");
+  return;
+}
+
+setInterval(sendDatagram, 1000);
+
+
+
+
