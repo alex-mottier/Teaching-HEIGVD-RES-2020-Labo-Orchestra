@@ -120,21 +120,21 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | JSON.stringify(Object) |
+| | By using the the function : ` JSON.stringify(Object) ` |
 |Question | What is **npm**?  |
-| | It's a package manager, taking care of the dependencies and install them in the node_modules directory. To configure it, edit the package.json file. |
+| | It's a package manager, taking care of the dependencies and install them in the ` node_modules` directory. To configure it, edit the ` package.json` file. |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
-| | It will fetch all the dependencies in the packages.json, and install them. The --save flag is not used anymore, since the version 5. At the times, it was used to edit the package.json file to automatically add the dependency name you are installing under the dependencies section. |
+| | It will fetch all the dependencies in the ` package.json`, and install them. The --save flag is not used anymore, since the version 5. At the times, it was used to edit the ` package.json` file to automatically add the dependency name you are installing under the dependencies section. |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
 | | We can use it to find a package. |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | By using the "uuid" package                                  |
+| | By using the ` uuid` package                                 |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | By using the "async" package |
+| | By using the ` async` package |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | By using the "net" package to use net.Socket() to send UDP datagram and the "udp-packet" to encode them. |
+| | By using the ` net` package to use net.Socket() to send UDP datagram and the ` udp-packet` to encode them. |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | By using the global variable "process.argv"                  |
+| | By using the global variable` process.argv`.                 |
 
 
 ## Task 3: package the "musician" app in a Docker image
@@ -142,17 +142,17 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we **define and build our own Docker image**?|
-| |                                                              |
+| | By using this command : `docker build -t "res/musician"`.    |
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
-| | *Enter your response here...*  |
+|  | That's the path where we want to execute our code            |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
-| | *Enter your response here...*  |
+| | By using the command : `docker run --name res_musician res/musician`. |
 |Question | How do we get the list of all **running containers**?  |
-| | *Enter your response here...*  |
+|  | By using the command : `docker ps`.                          |
 |Question | How do we **stop/kill** one running container?  |
-| | *Enter your response here...*  |
+| | By using the command : ` docker kill res_musician`. |
 |Question | How can we check that our running containers are effectively sending UDP datagrams?  |
-| | *Enter your response here...*  |
+| | By using a tool like Wireshark to check the traffic |
 
 
 ## Task 4: implement an "auditor" Node.js application
@@ -176,7 +176,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we validate that the whole system works, once we have built our Docker image? |
-|  | By using the script "validation.sh".                         |
+|  | By using the script `validate.sh`.                           |
 
 
 ## Constraints
