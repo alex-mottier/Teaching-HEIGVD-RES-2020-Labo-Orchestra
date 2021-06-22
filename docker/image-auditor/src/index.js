@@ -6,7 +6,6 @@
  */
 const net = require('net');
 const moment = require('moment');
-const async = require('async');
 const dgram = require('dgram');
 
 const soundMap = {
@@ -19,7 +18,7 @@ const soundMap = {
 
 let musicians = [];
 
-// Async thread to spot inactive musicians
+// Spot inactive musicians
 function spotInactives() {
   musicians = musicians.filter((musician) => {
     let duration = moment.duration(
@@ -30,13 +29,9 @@ function spotInactives() {
       return musician;
     }
   });
-
-  setTimeout(spotInactives, 700);
 }
 
-async.parallel([spotInactives], (err) => {
-  if (err) console.error(err.message);
-});
+setInterval(spotInactives, 1000);
 
 // UDP Listening Server
 
