@@ -9,6 +9,5 @@ RUN apt-get update && \
 WORKDIR /usr/share/js
 RUN npm install
 
-EXPOSE 3000
 
-CMD ["node", "/usr/share/js/index.js"]
+ENTRYPOINT ["node", "/usr/share/js/index.js"]
