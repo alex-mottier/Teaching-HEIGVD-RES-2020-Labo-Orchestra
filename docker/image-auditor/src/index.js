@@ -1,18 +1,23 @@
-const net = require('net')
-const moment = require('moment')
-const async = require('async')
-const { v4: uuidv4 } = require('uuid');
-const dgram = require('dgram')
+/**
+ * Authors : Jérémie Melly & Alexandre Mottier
+ * Date : 22.06.2021
+ * File : index.js
+ * Brief : Building
+ */
+const net = require('net');
+const moment = require('moment');
+const async = require('async');
+const dgram = require('dgram');
 
 const soundMap = {
-    "ti-ta-ti": "piano",
-    "pouet": "trumpet",
-    "trulu": "flute",
-    "gzi-gzi": "violin",
-    "boum-boum": "drum"
-}
+  'ti-ta-ti': 'piano',
+  pouet: 'trumpet',
+  trulu: 'flute',
+  'gzi-gzi': 'violin',
+  'boum-boum': 'drum',
+};
 
-let musicians = []
+let musicians = [];
 
 // Async thread to spot inactive musicians
 function spotInactives() {
@@ -21,61 +26,50 @@ function spotInactives() {
       moment(Date.now()).diff(moment(musician.lastActive))
     );
     let seconds = duration.asSeconds();
-    if (seconds > 5) {
-      console.log('Removed ' + JSON.stringify(musician));
-    }else{
-      return musician
+    if (seconds < 5) {
+      return musician;
     }
-  })
+  });
 
   setTimeout(spotInactives, 700);
-};
+}
 
-
-async.parallel([spotInactives],
-  (err) => {
-    if (err) console.error(err.message);
-  }
-);
+async.parallel([spotInactives], (err) => {
+  if (err) console.error(err.message);
+});
 
 // UDP Listening Server
 
-const port = 2205
+const port = 2205;
 
 socket = dgram.createSocket('udp4');
 
-socket.on('message', function (msg, info){
-    console.log(msg.toString());
-    msg_parsed = msg.split(' ')
-    if(msg_parsed.length != 2){
-      console.log("Received wrong DG : " + msg)
-    }else{
-      let found = false
-      for (const musician in musicians) {
-        if(musician.uuid == msg_parsed[1]){
-          musician.activeSince = Date.now()
-          found = true
-          break
-        }
+socket.on('message', function (msg, info) {
+  msg_parsed = msg.toString().split(' ');
+  if (msg_parsed.length === 2) {
+    let found = false;
+    musicians.forEach((musician) => {
+      if (musician.uuid === msg_parsed[1]) {
+        musician.lastActive = Date.now();
+        found = true;
+        return;
       }
-      if(!found){
-        const new_musician = {
-          uuid: msg_parsed[1],
-          instrument: soundMap[msg_parsed[0]],
-          activeSince: Date.now(),
-          lastActive: Date.now(),
-        }
-        musicians.push(new_musician)
-        console.log(
-          'Added : ' + JSON.stringify(new_musician)
-        );
-      }
+    });
+    if (!found) {
+      const new_musician = {
+        uuid: msg_parsed[1],
+        instrument: soundMap[msg_parsed[0]],
+        activeSince: Date.now(),
+        lastActive: Date.now(),
+      };
+      musicians.push(new_musician);
     }
- });
+  }
+});
 
-socket.on('listening', function(){
-    var address = socket.address();
-    console.log("listening on :" + address.address + ":" + address.port);
+socket.on('listening', function () {
+  socket.addMembership('239.255.22.5');
+  var address = socket.address();
 });
 
 socket.on('error', (err) => {
@@ -87,14 +81,19 @@ socket.bind(port);
 
 // TCP Listening Server
 var server = net.createServer(function (socket) {
-  socket.write(JSON.stringify(musicians.map((musician) => {
-    return {
-      uuid: musician.uuid,
-      instrument: musician.instrument,
-      activeSince: moment(musician.activeSince)
-    }
-  })));
+  socket.write(
+    JSON.stringify(
+      musicians.map((musician) => {
+        return {
+          uuid: musician.uuid,
+          instrument: musician.instrument,
+          activeSince: moment(musician.activeSince),
+        };
+      })
+    )
+  );
   socket.pipe(socket);
+  socket.destroy();
 });
 
-server.listen(port, '127.0.0.1');
+server.listen(port, '0.0.0.0');

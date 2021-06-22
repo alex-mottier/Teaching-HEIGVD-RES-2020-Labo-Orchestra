@@ -1,14 +1,14 @@
-FROM node:14.17.0
+FROM node
 
 COPY src /usr/share/js
 
 # For testing and debugging, better than native cat
 RUN apt-get update && \
-    apt-get install -y vim
+    apt-get install -y vim tcpdump
 
 WORKDIR /usr/share/js
 RUN npm install
 
 EXPOSE 2205
 
-CMD ["node", "/usr/share/js/index.js"]
+ENTRYPOINT ["node", "/usr/share/js/index.js"]

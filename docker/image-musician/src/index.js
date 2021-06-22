@@ -7,6 +7,12 @@
 const dgram = require('dgram');
 const { v4: uuidv4 } = require('uuid');
 
+let argv = process.argv;
+if (argv.length != 3) {
+  console.log('Need one and only one parameter !');
+  return;
+}
+
 const port = 2205
 
 const instrumentMap = {
@@ -20,24 +26,29 @@ const instrumentMap = {
 const uuid = uuidv4();
 
 let client = dgram.createSocket('udp4');
-let argv = process.argv;
 let instrument = argv[2];
+let datagram = instrumentMap[instrument] + ' ' + uuid;
+
+client.bind(function () {
+  client.setBroadcast(true);
+  setInterval(sendDatagram, 1000);
+});
 
 function sendDatagram(){
-  let datagram = instrumentMap[instrument] + " " + uuid;
-  console.log("sending packet : " + datagram);
-  client.send(datagram,0, datagram.length, port, '127.0.0.1');
+  message = new Buffer(datagram);
+  client.send(
+    message,
+    0,
+    message.length,
+    port,
+    '239.255.22.5',
+    function (err, bytes) {
+      console.log(
+        'Sending payload: ' + datagram + ' via port ' + client.address().port
+      );
+    }
+  );
 }
-
-
-
-if(argv.length != 3){
-  console.log("Need one and only one parameter !");
-  return;
-}
-
-setInterval(sendDatagram, 1000);
-
 
 
 
