@@ -11,8 +11,8 @@ const dgram = require('dgram');
 
 const soundMap = {
   'ti-ta-ti': 'piano',
-  pouet: 'trumpet',
-  trulu: 'flute',
+  'pouet': 'trumpet',
+  'trulu': 'flute',
   'gzi-gzi': 'violin',
   'boum-boum': 'drum',
 };
@@ -26,7 +26,7 @@ function spotInactives() {
       moment(Date.now()).diff(moment(musician.lastActive))
     );
     let seconds = duration.asSeconds();
-    if (seconds < 5) {
+    if (seconds <= 5) {
       return musician;
     }
   });
