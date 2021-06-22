@@ -132,7 +132,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
 | | By using the "async" package |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | By using the "socket.io" to send UDP datagram and the "udp-packet" to encode them. |
+| | By using the "net" package to use net.Socket() to send UDP datagram and the "udp-packet" to encode them. |
 |Question | In Node.js, how can we **access the command line arguments**? |
 | | By using the global variable "process.argv"                  |
 
