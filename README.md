@@ -104,7 +104,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | --- | --- |
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
-| | *Insert your diagram here...* |
+| | ![](images\architecture_diagram.png) |
 |Question | Who is going to **send UDP datagrams** and **when**? |
 | | *The Musician Docker container, every seconds.* |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
@@ -112,7 +112,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | What **payload** should we put in the UDP datagrams? |
 | | *PLAY \<UUID\> \<Instrument\>* |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
-| | *{}* |
+| | **Reciever**<br/><br/>musicians:<br/>[<br/>  {<br/>   "uuid" : <UUID>,<br/>   "instrument" : <INSTRUMENT>,<br/>   "activeSince" : <DATETIME>,<br/>   "lastActive" : <DATETIME><br/>  },<br/>  ...<br/>]<br/><br/>soundMap:<br/>{<br/> "ti-ta-ti" : "piano",<br/> "pouet" : "trumpet",<br/> "trulu" : "flute",<br/> "gzi-gzi" : "violin",<br/> "boum-boum" : "drum"<br/>}<br/><br/>---------------------------<br/><br/>**Sender**<br/><br/>instrumentMap: <br/>{<br/>  "piano"," : "ti-ta-ti",<br/> "trumpet" : "pouet",<br/> "flute" : "trulu",<br/> "violin" : "gzi-gzi",<br/> "drum" : "boum-boum"<br/>} |
 
 
 ## Task 2: implement a "musician" Node.js application
@@ -120,21 +120,21 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | *Enter your response here...*  |
+| | JSON.stringify(Object) |
 |Question | What is **npm**?  |
-| | *Enter your response here...*  |
+| | It's a package manager, taking care of the dependencies and install them in the node_modules directory. To configure it, edit the package.json file. |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
-| | *Enter your response here...*  |
+| | It will fetch all the dependencies in the packages.json, and install them. The --save flag is not used anymore, since the version 5. At the times, it was used to edit the package.json file to automatically add the dependency name you are installing under the dependencies section. |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
-| | *Enter your response here...*  |
+| | We can use it to find a package. |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | *Enter your response here...*  |
+| | By using the "uuid" package                                  |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | *Enter your response here...*  |
+| | By using the "async" package |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | *Enter your response here...*  |
+| | By using the "socket.io" to send UDP datagram and the "udp-packet" to encode them. |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | *Enter your response here...*  |
+| | By using the global variable "process.argv"                  |
 
 
 ## Task 3: package the "musician" app in a Docker image
@@ -142,7 +142,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we **define and build our own Docker image**?|
-| | *Enter your response here...*  |
+| |                                                              |
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
 | | *Enter your response here...*  |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
@@ -176,7 +176,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we validate that the whole system works, once we have built our Docker image? |
-| | *Enter your response here...* |
+|  | By using the script "validation.sh".                         |
 
 
 ## Constraints
