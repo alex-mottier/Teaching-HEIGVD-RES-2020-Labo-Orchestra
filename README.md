@@ -6,7 +6,7 @@
 | #  | Topic |
 | --- | --- |
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
-| | ![](images\architecture_diagram.png) |
+| | ![](/images/architecture_diagram.png) |
 |Question | Who is going to **send UDP datagrams** and **when**? |
 | | *The Musician Docker container, every seconds.* |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
@@ -83,4 +83,4 @@
 
 ## Result of validate.sh
 
-![](images\result.jpeg)
+![](/images/result.jpeg)
