@@ -12,7 +12,7 @@
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
 | | *The Auditor Docker container, it create or refresh the structure representing the Musician.* |
 |Question | What **payload** should we put in the UDP datagrams? |
-| | *PLAY \<UUID\> \<Instrument\>* |
+| | *\<InstrumentSound\> \<UUID\> * |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
 | | **Reciever**<br/><br/>musicians:<br/>[<br/>  {<br/>   "uuid" : <UUID>,<br/>   "instrument" : <INSTRUMENT>,<br/>   "activeSince" : <DATETIME>,<br/>   "lastActive" : <DATETIME><br/>  },<br/>  ...<br/>]<br/><br/>soundMap:<br/>{<br/> "ti-ta-ti" : "piano",<br/> "pouet" : "trumpet",<br/> "trulu" : "flute",<br/> "gzi-gzi" : "violin",<br/> "boum-boum" : "drum"<br/>}<br/><br/>---------------------------<br/><br/>**Sender**<br/><br/>instrumentMap: <br/>{<br/>  "piano"," : "ti-ta-ti",<br/> "trumpet" : "pouet",<br/> "flute" : "trulu",<br/> "violin" : "gzi-gzi",<br/> "drum" : "boum-boum"<br/>} |
 
