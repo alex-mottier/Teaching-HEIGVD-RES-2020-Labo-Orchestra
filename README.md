@@ -32,9 +32,9 @@
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
 | | By using the ` uuid` package                                 |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | By using the ` async` package |
+| | 	By using the function `SetInterval(%function%, %timing in miliseconds%);` |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | By using the ` net` package to use net.Socket() to send UDP datagram and the ` udp-packet` to encode them. |
+| | By using the `dgram` package |
 |Question | In Node.js, how can we **access the command line arguments**? |
 | | By using the global variable` process.argv`.                 |
 
